@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link, Route, Routes } from "react-router-dom";
 import "./App.css";
-
-interface IUser {
-  _id: number;
-  name: string;
-  age: number;
-}
+import Home from "./components/Home";
+import UserDetails from "./components/UserDetails";
+import UsersList from "./components/UsersList";
+import { IUser } from "./utils/interfaces";
 
 function App() {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -15,7 +14,6 @@ function App() {
       const res = await fetch("http://localhost:5000/api/users");
       const data = await res.json();
       setUsers(data.users);
-      console.log(data.users);
     };
     fetchData();
   }, []);
@@ -23,9 +21,12 @@ function App() {
   return (
     <div className="App">
       <h1>Hello World</h1>
-      {users?.map((user) => (
-        <li key={user._id}>{user.name}</li>
-      ))}
+      <Link to="/">Home</Link>
+      <UsersList users={users} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/detail/:_id" element={<UserDetails users={users} />} />
+      </Routes>
     </div>
   );
 }
