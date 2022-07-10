@@ -24,7 +24,7 @@ function App() {
     <div className="App">
       <h1>Hello World</h1>
       {users?.map((user) => (
-        <li key={user._id}>{user._id}</li>
+        <li key={user._id}>{user.name}</li>
       ))}
     </div>
   );
