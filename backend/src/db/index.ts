@@ -1,14 +1,12 @@
-import { createConnection } from "mysql";
+import mongoose from "mongoose";
 
-const con = createConnection({
-  host: "localhost",
-  user: "nodejs_db",
-  password: "",
-  database: "nodejs_db",
-});
+declare var process: {
+  env: {
+    MONGODB_URI: string;
+  };
+};
 
-con.connect((err) =>
-  err ? console.log(err) : console.log(`Connected to Database`)
-);
-
-export default con;
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log(`Database Connected`))
+  .catch(() => console.log(`Can't connect to Database`));
