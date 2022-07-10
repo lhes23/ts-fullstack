@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 interface IUser {
-  id: number;
+  _id: number;
   name: string;
   age: number;
 }
@@ -13,11 +12,10 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("http://localhost:4000/api/users");
-      // const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+      const res = await fetch("http://localhost:5000/api/users");
       const data = await res.json();
-      setUsers(data);
-      console.log(data);
+      setUsers(data.users);
+      console.log(data.users);
     };
     fetchData();
   }, []);
@@ -26,7 +24,7 @@ function App() {
     <div className="App">
       <h1>Hello World</h1>
       {users?.map((user) => (
-        <li key={user.id}>{user.id}</li>
+        <li key={user._id}>{user._id}</li>
       ))}
     </div>
   );

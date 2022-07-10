@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import { config } from "dotenv";
 import { errorHandler, httpErrorHandler } from "./errorHandlers";
+import cors from "cors";
 import indexRoute from "./routes";
 import userRoutes from "./routes/userRoutes";
 
@@ -12,6 +13,7 @@ const app: Application = express();
 // Middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // Routes
 app.use("/", indexRoute);
