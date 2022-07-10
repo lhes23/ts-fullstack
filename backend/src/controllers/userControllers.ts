@@ -40,3 +40,15 @@ export const updateSingleUser = async (req: Request, res: Response) => {
     return res.status(401).json({ error });
   }
 };
+
+export const deleteSingleUser = async (req: Request, res: Response) => {
+  try {
+    const _id = req.params.id;
+    const user = await User.findByIdAndDelete({ _id });
+    return res
+      .status(201)
+      .json({ message: `Successfully Deleted! ID Number: ${_id}`, user });
+  } catch (error) {
+    return res.status(401).json({ error });
+  }
+};
