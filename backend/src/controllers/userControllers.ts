@@ -10,20 +10,22 @@ export const getAllUsers = async (req: Request, res: Response) => {
   }
 };
 
-//   export const addUser = (req: Request, res: Response) => {
-//     try {
-//       const { name, age } = req.body;
-//     } catch (error) {
-//       return res.status(401).json({ error });
-//     }
-//   };
+export const addUser = async (req: Request, res: Response) => {
+  try {
+    const { name, age } = req.body;
+    const user = await User.create({ name, age });
+    return res.status(201).json({ message: "Success", user });
+  } catch (error) {
+    return res.status(401).json({ error });
+  }
+};
 
-//   export const getSingleUser = (req: Request, res: Response) => {
-//     try {
-//       const paramsId = req.params.id;
-//       const id = Number(paramsId);
-//       queryHandler(userData.findById({ id }), res);
-//     } catch (error) {
-//       return res.status(401).json({ error });
-//     }
-//   };
+export const getSingleUser = async (req: Request, res: Response) => {
+  try {
+    const _id = req.params.id;
+    const user = await User.find({ _id });
+    return res.status(201).json({ message: "Success", user });
+  } catch (error) {
+    return res.status(401).json({ error });
+  }
+};
